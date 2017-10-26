@@ -52,6 +52,9 @@ var locations = [ //ko.observableArray ??????
 
 var map; 
 var markers = [];
+var selectedMarker; 
+var icon = 'https://www.google.com/mapfiles/marker.png'; 
+var selectedIcon = 'https://www.google.com/mapfiles/marker_white.png';
 // color styles inspired by https://snazzymaps.com/style/93/lost-in-the-desert 
 var styles = [
              {
@@ -82,17 +85,45 @@ function initMap() {
         var marker = new google.maps.Marker({
             map: map,
             id: i,
+            icon: icon,
             position: position,
-            name: name
-            // animation: google.maps.Animation.DROP, -- see documentation before doing animation
+            name: name,
+            animation: google.maps.Animation.BOUNCE, 
         }); 
-        //push the marker created above into the markers array
-        markers.push(marker);
+        marker.addListener('click', toggleBounce);
+         
+        
+        
+    //push the marker created above into the markers array
+    markers.push(marker);
         
     }
-    
-}
-var Model = function() {
+    google.maps.event.addListener(global_markers[i], 'click', function() {
+    for (var j = 0; j < global_markers.length; j++) {
+        global_markers[j].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+    }
+
+    this.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
+    infowindow.setContent(this['infowindow']);
+    infowindow.open(map, this);
+});
+    };
+ 
+
+// Animate markers
+ function toggleBounce() {
+     
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    for (var i = 0; i < markers.length; i++) {
+         markers[i].position.setAnimation(null);
+     }
+      }; 
+
+ var Model = function() {
     //locations
 }
 
@@ -102,8 +133,8 @@ var ViewModel = function() {
     //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
     
     
-    /* 
-    Then, we add the following filter function to the viewModel and pass the myNumbers observableArray as the first argument to the ko.utils.arrayFilter method:
+   
+    /* Then, we add the following filter function to the viewModel and pass the myNumbers observableArray as the first argument to the ko.utils.arrayFilter method:
 
         viewModel.primeNumberList = ko.computed(function() {
             return ko.utils.arrayFilter(this.myNumbers(), function(number) {
@@ -113,8 +144,9 @@ var ViewModel = function() {
         
         
         If you want to use a dropdown select menu to filter the list view items and map markers, consider using the ko options binding1. If you want to use a text box to filter the locations, take a look at the ko textInput binding. 
+        */
     
-    */ 
+    
 } 
 
 var View = function() {
