@@ -53,7 +53,7 @@ var locations = [ //ko.observableArray ??????
 var map; 
 var markers = [];
 var selectedMarker; 
-var icon = 'https://www.google.com/mapfiles/marker.png'; 
+var defaultIcon = 'https://www.google.com/mapfiles/marker.png'; 
 var selectedIcon = 'https://www.google.com/mapfiles/marker_white.png';
 // color styles inspired by https://snazzymaps.com/style/93/lost-in-the-desert 
 var styles = [
@@ -85,16 +85,24 @@ function initMap() {
         var marker = new google.maps.Marker({
             map: map,
             id: i,
-            icon: icon,
+            icon: defaultIcon,
+            defaultIcon: defaultIcon,
+            selectedIcon: selectedIcon,
             position: position,
+            clicked: false, 
             name: name
         }); 
         marker.addListener('click', function() {
             animateMarker(this, marker);
-            //toggleBounce(this, marker);
+            marker.clicked = true; 
             //populateInfoWindow(this, largeInfoWindow);
-            //changeColor(this, marker);
         });
+        marker.addListener('mouseout', function() {
+          if (!marker.clicked) {
+            marker.setIcon(defaultIcon);
+          }
+        });
+        
         locations[i].marker = marker; 
          
     //push the marker created above into the markers array
@@ -104,35 +112,35 @@ function initMap() {
  
 function animateMarker(marker) {
     for (var i = 0; i < locations.length; i++) { 
-         marker.setIcon(icon);
+        marker.clicked = false; 
+         marker.setIcon(defaultIcon);
         marker.setAnimation(google.maps.Animation.NULL);
         }
+    marker.clicked = true; 
     marker.setIcon(selectedIcon);
-    marker.setAnimation(google.maps.Animation.BOUNCE); 
+    marker.setAnimation(google.maps.Animation.BOUNCE);
 };
 
-/* //Change Marker color
-function changeColor(marker) {
-    for (var i = 0; i < locations.length; i++) { 
-         marker.setIcon(icon);
-        }
-    marker.setIcon(selectedIcon);
-};
-
-// Animate markers
- function toggleBounce(marker) {
-     for (var i = 0; i < locations.length; i++) {
-         marker.setAnimation(google.maps.Animation.NULL);
-        }
-        marker.setAnimation(google.maps.Animation.BOUNCE); 
-     
-      }; */
 
  var Model = function() {
     //locations
 };
 
 var ViewModel = function() {
+    var self = this; 
+    
+    this.currentMarker = function() {
+
+      // loop through locations and reset marker icon
+      self.locations().forEach(function(location) {
+        location.marker.setIcon(defaultIcon);
+      });
+
+      this.marker.setIcon(highlightedIcon);
+      this.marker.clicked = true;
+        
+      self.populateInfoWindow(this.marker, largeInfowindow);
+    }
     //markers are to go here but don't use observables
     // list - maybe use ko.utils.arrayFilter 
     //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
