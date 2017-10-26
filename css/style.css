@@ -14,11 +14,12 @@ html, body {
 #map { 
     bottom:0px;
     height: 100%;
-    position: relative;
-    left: 300px; 
+    position: absolute;
+    left: 33%; 
     right: 0px; 
 }
 
-.heading {
-    margin-left: 25%;
+.title {
+    margin-left: 4em;
+    margin-top: 1.8em;
 } 
