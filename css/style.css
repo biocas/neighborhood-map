@@ -1,0 +1,19 @@
+html, body {
+     font-family: "Helvetica", sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} 
+
+.container {
+    height: 100%;
+    position: relative;
+}
+
+#map { /*change the left and right positions!! */ 
+    bottom:0px;
+    height: 100%;
+    position: absolute;
+    left: 362px;
+    right: 0px;
+}
