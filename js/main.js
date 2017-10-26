@@ -87,45 +87,41 @@ function initMap() {
             id: i,
             icon: icon,
             position: position,
-            name: name,
-            animation: google.maps.Animation.BOUNCE, 
+            name: name
         }); 
-        marker.addListener('click', toggleBounce);
+        marker.addListener('click', function() {
+            toggleBounce(this, marker);
+            //populateInfoWindow(this, largeInfoWindow);
+            changeColor(this, marker);
+        });
+        locations[i].marker = marker; 
          
-        
-        
     //push the marker created above into the markers array
     markers.push(marker);
         
     }
-    google.maps.event.addListener(global_markers[i], 'click', function() {
-    for (var j = 0; j < global_markers.length; j++) {
-        global_markers[j].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-    }
-
-    this.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
-    infowindow.setContent(this['infowindow']);
-    infowindow.open(map, this);
-});
     };
  
+//Change Marker color
+function changeColor(marker) {
+    for (var i = 0; i < locations.length; i++) { 
+         marker.setIcon(icon);
+        }
+    marker.setIcon(selectedIcon);
+};
 
 // Animate markers
- function toggleBounce() {
-     
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
+ function toggleBounce(marker) {
+     for (var i = 0; i < locations.length; i++) {
+         marker.setAnimation(google.maps.Animation.NULL);
         }
-    for (var i = 0; i < markers.length; i++) {
-         markers[i].position.setAnimation(null);
-     }
+        marker.setAnimation(google.maps.Animation.BOUNCE); 
+     
       }; 
 
  var Model = function() {
     //locations
-}
+};
 
 var ViewModel = function() {
     //markers are to go here but don't use observables
