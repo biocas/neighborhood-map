@@ -49,14 +49,24 @@ var locations = [ //ko.observableArray ??????
     }
 ]; 
 
-
 var map; 
 var markers = [];
 var selectedMarker; 
 var defaultIcon = 'https://www.google.com/mapfiles/marker.png'; 
 var selectedIcon = 'https://www.google.com/mapfiles/marker_white.png';
 // color styles inspired by https://snazzymaps.com/style/93/lost-in-the-desert 
-var styles = [
+var styles = [ {
+        elementType: 'labels',
+        stylers: [{visibility: 'off'},
+            {color: '#f49f53'}
+            ]
+        },
+              {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{visibility: 'on'},
+                  {color: '#d59563'}]
+            },
              {
                featureType: 'water',
                  stylers: [{color: '#1994bf'}]
@@ -128,7 +138,7 @@ function animateMarker(marker) {
 function populateInfoWindow(marker, infowindow) {
     //check to see if an info window is already open on the marker
     if (infowindow.marker != marker) {
-        //infowindow.setContent(' ');
+        infowindow.setContent(' ');
         infowindow.marker = marker;
           // Make sure the marker property is cleared if the infowindow is closed.
           infowindow.addListener('closeclick', function() {
@@ -137,8 +147,12 @@ function populateInfoWindow(marker, infowindow) {
         
         for (var i = 0; i < locations.length; i++) {
             var name = locations[i].name; 
+            console.log(name);
             for (var j = 0; j < locations[i].type.length; j++) {
             var type = locations[i].type[j];
+                console.log(type);
+                infowindow.setContent('<div>' + name + '</div>' +
+                '<div>' + type + '</div>');
           }
         }
         infowindow.setContent('<div>' + name + '</div>' +
@@ -149,7 +163,7 @@ function populateInfoWindow(marker, infowindow) {
 
 var ViewModel = function() {
     var self = this; 
-    
+    //ko.applyBindings(myViewModel); --- AT THE END
     /* this.currentMarker = function() {
 
       // loop through locations and reset marker icon
