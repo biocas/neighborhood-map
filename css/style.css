@@ -1,8 +1,9 @@
 html, body {
-     font-family: "Helvetica", sans-serif;
+     font-family: "Lato", Helvetica, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #a3d4e5;/* CHOOSE: #fceee2 or #a3d4e5 */
 } 
 
 .container {
@@ -10,10 +11,14 @@ html, body {
     position: relative;
 }
 
-#map { /*change the left and right positions!! */ 
+#map { 
     bottom:0px;
     height: 100%;
-    position: absolute;
-    left: 362px;
-    right: 0px;
+    position: relative;
+    left: 300px; 
+    right: 0px; 
 }
+
+.heading {
+    margin-left: 25%;
+} 
