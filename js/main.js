@@ -90,19 +90,28 @@ function initMap() {
             name: name
         }); 
         marker.addListener('click', function() {
-            toggleBounce(this, marker);
+            animateMarker(this, marker);
+            //toggleBounce(this, marker);
             //populateInfoWindow(this, largeInfoWindow);
-            changeColor(this, marker);
+            //changeColor(this, marker);
         });
         locations[i].marker = marker; 
          
     //push the marker created above into the markers array
     markers.push(marker);
         
-    }
-    };
+    }};
  
-//Change Marker color
+function animateMarker(marker) {
+    for (var i = 0; i < locations.length; i++) { 
+         marker.setIcon(icon);
+        marker.setAnimation(google.maps.Animation.NULL);
+        }
+    marker.setIcon(selectedIcon);
+    marker.setAnimation(google.maps.Animation.BOUNCE); 
+};
+
+/* //Change Marker color
 function changeColor(marker) {
     for (var i = 0; i < locations.length; i++) { 
          marker.setIcon(icon);
@@ -117,7 +126,7 @@ function changeColor(marker) {
         }
         marker.setAnimation(google.maps.Animation.BOUNCE); 
      
-      }; 
+      }; */
 
  var Model = function() {
     //locations
