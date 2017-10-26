@@ -92,10 +92,12 @@ function initMap() {
             clicked: false, 
             name: name
         }); 
+        
+        
         marker.addListener('click', function() {
             animateMarker(this, marker);
             marker.clicked = true; 
-            //populateInfoWindow(this, largeInfoWindow);
+            populateInfoWindow(this, infoWindow);
         });
         marker.addListener('mouseout', function() {
           if (!marker.clicked) {
@@ -107,8 +109,10 @@ function initMap() {
          
     //push the marker created above into the markers array
     markers.push(marker);
-        
-    }};
+    
+    }
+var infoWindow = new google.maps.InfoWindow();
+};
  
 function animateMarker(marker) {
     for (var i = 0; i < locations.length; i++) { 
@@ -121,15 +125,32 @@ function animateMarker(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
 };
 
-
- var Model = function() {
-    //locations
+function populateInfoWindow(marker, infowindow) {
+    //check to see if an info window is already open on the marker
+    if (infowindow.marker != marker) {
+        //infowindow.setContent(' ');
+        infowindow.marker = marker;
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+          });
+        
+        for (var i = 0; i < locations.length; i++) {
+            var name = locations[i].name; 
+            for (var j = 0; j < locations[i].type.length; j++) {
+            var type = locations[i].type[j];
+          }
+        }
+        infowindow.setContent('<div>' + name + '</div>' +
+                '<div>' + type + '</div>');
+       infowindow.open(map, marker); 
+    } 
 };
 
 var ViewModel = function() {
     var self = this; 
     
-    this.currentMarker = function() {
+    /* this.currentMarker = function() {
 
       // loop through locations and reset marker icon
       self.locations().forEach(function(location) {
@@ -140,7 +161,7 @@ var ViewModel = function() {
       this.marker.clicked = true;
         
       self.populateInfoWindow(this.marker, largeInfowindow);
-    }
+    } */
     //markers are to go here but don't use observables
     // list - maybe use ko.utils.arrayFilter 
     //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
