@@ -7,16 +7,22 @@
         
     </head>
     <body>
-       <div class="container">
-           <header class="heading">
-              <h2 class="title">Explore Marrickville</h2>
-             <input data-bind="click: toggle" class="menu-btn" type="image" src="img/hamburger.png"> 
-            </header>
-              <!--put search bar and filter here -->
-              <ul class="list" data-bind="foreach: locations">
-                  <li class="list-item"></li>
-                  <li></li>
-              </ul>
+       <div class="container open">
+          <div class="row">
+             <div class="colapse sidebar show">
+                 <header class="heading cold-md-4 col-xs-2">
+                      <h2 class="title">Explore Marrickville</h2>
+                  <!--data-bind="click: toggle" INSERT ON INPUT -->
+                     <input  data-toggle="collapse" data-target="sidebar" aria-expanded="true" class="menu-btn" type="image" src="img/hamburger.png"> 
+                </header>
+                  <!--put search bar and filter here -->
+                  <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
+                      <li class="list-item"></li>
+                      <li></li>
+                  </ul>
+             </div>
+          </div>
+           
           
            <div id="map"></div>
            
@@ -24,6 +30,6 @@
         <script src=js/jquery.min.js></script>
         <script src="js/main.js"></script>
         <script src="js/map.js"></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCOuPlvn1dH-WP3nweDfdvtHm3QVt5y_9I&v=3&callback=initMap"></script>
+        <script async defer onerror="googleError()" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCOuPlvn1dH-WP3nweDfdvtHm3QVt5y_9I&v=3&callback=initMap"></script>
     </body>
 </html>
