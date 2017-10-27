@@ -16,19 +16,18 @@
                   <!--data-bind="click: toggle" INSERT ON INPUT -->
                      <input  data-toggle="collapse" data-target="sidebar" aria-expanded="true" class="menu-btn" type="image" src="img/hamburger.png"> 
                 </header>
-                  <!--put search bar and filter here -->
                      <div class="col-md-4">
                          <div class="input-option">
                          <select data-bind="options: locationTypes,
                                             optionsText: location.type,
                                             optionsCaption: 'What are you up to?'"
                                             multiple="true" multiple class="dropdown-menu" >
-                                 
-                             </select>
-                        
+                        </select>
+                        <!--value: selectedCategory -->
                       </div>
                        <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
-                      <li class="list-item" data-bind="text: name, click: $parent.showMarker"></li>
+                      <li class="list-item" data-bind="visible: visible, text: name, click: $parent.showMarker"></li>
+                      <!--visible: visible, -->
                      </div>
                   </ul>
              </div>

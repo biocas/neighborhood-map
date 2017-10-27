@@ -1,20 +1,23 @@
 // Hard-coded locations array
 var locations = [ //ko.observableArray ??????
     {
-       position: {lat: -33.906764,lng: 151.171823}, 
+        visible: ko.observable(true),
+        position: {lat: -33.906764,lng: 151.171823}, 
         name: 'Marrickville Metro',
         address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls', 
         type: ['establishment', 'shopping_mall']
     },
-    {
+    {   
+        visible: ko.observable(true),
         position: {lat: -33.911956,lng: 151.160234}, 
         name: 'Pagoto Gelato & Waffle House',
         address: '301 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJLRZtzWawEmsRT7Qig49CYGo',
         type: ['establishment', 'food']
     },
-    {
+    {   
+        visible: ko.observable(true),
         position: {lat: -33.911291,lng: 151.158527}, 
         name: 'Nutrition Station Cafe',
         address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
@@ -22,6 +25,7 @@ var locations = [ //ko.observableArray ??????
         type: ['establishment', 'food']
     },
     {
+        visible: ko.observable(true),
         position: {lat:  -33.911442,lng: 151.155324}, 
         name: 'Banana Joe\'s Foodworks',
         address: '258 Illawarra Rd, Marrickville NSW 2204, Austrália',
@@ -29,6 +33,7 @@ var locations = [ //ko.observableArray ??????
         type: ['establishment', 'food', 'grocery_or_supermarket']
     },
     {
+        visible: ko.observable(true),
         position: {lat: -33.911237,lng: 151.155437}, 
         name: 'The Fitness Playground',
         address: '1, 258-272 Illawarra Rd, Marrickville NSW 2204, Austrália',
@@ -36,6 +41,7 @@ var locations = [ //ko.observableArray ??????
         type: ['establishment', 'gym']
     },
     {
+        visible: ko.observable(true),
         position: {lat: -33.9138,lng: 151.153245}, 
         name: 'Marrickville Train Station',
         address: 'Marrickville NSW 2204, Austrália',
@@ -43,6 +49,7 @@ var locations = [ //ko.observableArray ??????
         type: ['train_station', 'transit_station']
     },
     {
+        visible: ko.observable(true),
         position: {lat: -33.904672,lng: 151.158162}, 
         name: 'Henson Park',
         address: '22 Centennial St, Marrickville NSW 2204, Austrália',
@@ -50,6 +57,7 @@ var locations = [ //ko.observableArray ??????
         type: ['point_of_interest', 'stadium']
     },
     {
+        visible: ko.observable(true),
         position: {lat: -33.905679,lng: 151.165213}, 
         name: 'Factory Theatre',
         address: '105 Victoria Rd, Marrickville NSW 2204, Austrália',
