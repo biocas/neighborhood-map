@@ -136,7 +136,7 @@ function initMap() {
 //click event when list item is clicked, to animateMarker and show infowindow
     locations[i].showDetails = function() {
       animateMarker(this.marker);
-      populateInfoWindow(this.marker, this.infoWindow);
+      populateInfoWindow(marker, infoWindow);
     };
     }
 };
@@ -201,25 +201,33 @@ var Location = function(data) {
 var ViewModel = function() {
     var self = this;
     self.locationList = ko.observableArray(locations); 
-    self.query = ko.observable('');
-    self.filterLocations = ko.observableArray();
+    self.selectedType = ko.observable('All');
+    self.filterLocations = ko.observableArray([]);
+    self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
+    /*self.filterTypes = ko.computed(function() {
+        for (var i = 0; i < self.locationList.length; i++) {
+            if (){
+                
+            } else if () {
+                
+            } else {
+                return ko.utils.arrayFilter(self.filterLocations(), function(place) {
+               var type = place.type.toLowerCase();
+               var match = self.filterTypes().includes(type);
+               return match;
+            });
+        }
+    }});*/
+
     
     //pushes data into filterLocations array
     for (var i = 0; i < locations.length; i++) {
         var place = new Location(locations[i]);
         self.filterLocations.push(place);
-       // console.log(place);
+       //console.log(place);
     };
     
-    //show markers when list items are clicked
-    self.showMarker = function() {
-        google.maps.event.trigger(markers[i], 'click');
-    }
-    
-    self.locationTypes = ko.observableArray(['establishment', 'food', 'interest', 'gym', 'supermarket']);
-    
-    self.filterTypes = ko.observableArray([]);
-
+    /*
     
     self.filterPlaces = ko.computed ( function() {
        var filter = self.filterTypes();
@@ -233,17 +241,18 @@ var ViewModel = function() {
                return match;
            });
        }
-    });
+    });*/
 
-    
+    //show markers when list items are clicked
+    /*self.showMarker = function() {
+        google.maps.event.trigger(markers[i], 'click');
+    }*/
     
     /* 
     //markers are to go here but don't use observables
     // list - maybe use ko.utils.arrayFilter 
     //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
-    
-    
-   
+
     /* Then, we add the following filter function to the viewModel and pass the myNumbers observableArray as the first argument to the ko.utils.arrayFilter method:
 
         viewModel.primeNumberList = ko.computed(function() {
@@ -251,11 +260,7 @@ var ViewModel = function() {
                 return test_prime(number); // Returns 'true' or 'false'
             });
         }, viewModel);
-        
-        
-        If you want to use a dropdown select menu to filter the list view items and map markers, consider using the ko options binding1. If you want to use a text box to filter the locations, take a look at the ko textInput binding. 
-        
-        
+
         $('.menu-btn').click(function() {
     $('.container').toggleClass('open');
  
