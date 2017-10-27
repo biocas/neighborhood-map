@@ -56,4 +56,8 @@ html, body {
     .title{
         display: none;
     }
+    .input-option {
+    padding-top: 10%;
+    }
+
     }
