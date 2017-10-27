@@ -133,6 +133,12 @@ function animateMarker(marker) {
     marker.clicked = true; 
     marker.setIcon(selectedIcon);
     marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+             marker.setAnimation(google.maps.Animation.NULL);
+         }, 1250);
+    setTimeout(function() {
+             marker.setIcon(defaultIcon);
+         }, 1250);
 };
 
 function populateInfoWindow(marker, infowindow) {
@@ -164,7 +170,10 @@ function populateInfoWindow(marker, infowindow) {
 };
 
 var ViewModel = function() {
-    var self = this; 
+    var self = this;
+    var vines = ko.utils.arrayMap(locations, function(location) {
+         return new Vine(location);
+     });
     //ko.applyBindings(myViewModel); --- AT THE END
     /* this.currentMarker = function() {
 
