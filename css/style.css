@@ -32,9 +32,21 @@ html, body {
 
 /* Hamburger Icon */
 .menu-btn {
-    width: 5%;
+    width: 3em;
     float: left;
     padding-left: 3em;
     background-color: #a3d4e5;
     border-style: hidden; !important
 }
+
+.list {
+    padding: 2em;
+}
+
+
+
+
+@media screen and (max-width: 800px){ 
+    .title{
+        display: none;
+    }
