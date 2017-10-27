@@ -1,49 +1,58 @@
+// Hard-coded locations array
 var locations = [ //ko.observableArray ??????
     {
        position: {lat: -33.906764,lng: 151.171823}, 
         name: 'Marrickville Metro Shopping Centre',
+        address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls', 
         type: ['establishment', 'shopping_mall']
     },
     {
         position: {lat: -33.911956,lng: 151.160234}, 
         name: 'Pagoto Gelato & Waffle House',
+        address: '301 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJLRZtzWawEmsRT7Qig49CYGo',
         type: ['establishment', 'food']
     },
     {
         position: {lat: -33.911291,lng: 151.158527}, 
         name: 'Nutrition Station Cafe Marrickville',
+        address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJQ7Qsu2awEmsRPjuMoqq6vno',
         type: ['establishment', 'food']
     },
     {
         position: {lat:  -33.911442,lng: 151.155324}, 
         name: 'Banana Joe\'s Foodworks',
+        address: '258 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJ5ZjmhmOwEmsRbLQh6yyI8P8',
         type: ['establishment', 'food', 'grocery_or_supermarket']
     },
     {
         position: {lat: -33.911237,lng: 151.155437}, 
         name: 'The Fitness Playground',
+        address: '1, 258-272 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJB3qeH2OwEmsRkmqsd7pu0yY',
         type: ['establishment', 'gym']
     },
     {
         position: {lat: -33.9138,lng: 151.153245}, 
         name: 'Marrickville Train Station',
+        address: 'Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSVJV3GKwEmsRIrYZXmODFpg',
         type: ['train_station', 'transit_station']
     },
     {
         position: {lat: -33.904672,lng: 151.158162}, 
         name: 'Henson Park',
+        address: '22 Centennial St, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSxdjKGmwEmsRwBby-Wh9AQ8',
         type: ['point_of_interest', 'stadium']
     },
     {
         position: {lat: -33.905679,lng: 151.165213}, 
         name: 'Factory Theatre',
+        address: '105 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJGXxx7mewEmsRGZWc2Vov7u0',
         type: ['establishment', 'point_of_interest']
     }
@@ -124,6 +133,7 @@ function initMap() {
 var infoWindow = new google.maps.InfoWindow();
 };
  
+//animates markers by bouncing and changing its color when clicked. The animation stops by using setTimeOut
 function animateMarker(marker) {
     for (var i = 0; i < locations.length; i++) { 
         marker.clicked = false; 
@@ -169,24 +179,31 @@ function populateInfoWindow(marker, infowindow) {
     } 
 };
 
+//Location represents the Model in the MVVM paradigm
+var Location = function(data) {
+    var self = this;
+    self.name = data.name;
+    self.location = data.location;
+    self.showMe = ko.observable(true);
+};
+
+
+//View Model 
 var ViewModel = function() {
     var self = this;
-    var vines = ko.utils.arrayMap(locations, function(location) {
-         return new Vine(location);
-     });
-    //ko.applyBindings(myViewModel); --- AT THE END
-    /* this.currentMarker = function() {
-
-      // loop through locations and reset marker icon
-      self.locations().forEach(function(location) {
-        location.marker.setIcon(defaultIcon);
-      });
-
-      this.marker.setIcon(highlightedIcon);
-      this.marker.clicked = true;
-        
-      self.populateInfoWindow(this.marker, largeInfowindow);
-    } */
+    
+    self.locationList = ko.observableArray(locations); 
+    self.query = ko.observable('');
+    self.filterLocations = ko.observableArray();
+    
+    for (var i = 0; i < locations.length; i++) {
+        var place = new Location(locations[i]);
+        self.filterLocations.push(place);
+    }
+    
+    
+    //ko.applyBindings(ViewModel);
+    /* 
     //markers are to go here but don't use observables
     // list - maybe use ko.utils.arrayFilter 
     //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
@@ -203,14 +220,22 @@ var ViewModel = function() {
         
         
         If you want to use a dropdown select menu to filter the list view items and map markers, consider using the ko options binding1. If you want to use a text box to filter the locations, take a look at the ko textInput binding. 
+        
+        
+        $('.menu-btn').click(function() {
+    $('.container').toggleClass('open');
+ 
+        });
         */
     
     
 } 
 
-
+//appyind bindings through the View Model
 var vm = new ViewModel();
 ko.applyBindings(vm);
+
+
 //Handling Errors
 function googleError() {
 
@@ -219,15 +244,10 @@ function googleError() {
 }
 
 
-$('.menu-btn').click(function() {
- $('.container').toggleClass('open');
- 
-});
+
 /*
 Display a simple list with location names using Knockoutjs:
-Define a hard-coded locations Array of location objects. => todo
 
-Define a ViewModel constructor. => todo
 
 Instantiate the ViewModel and activate Knockout (aka apply the bindings). => todo
 
