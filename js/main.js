@@ -120,6 +120,8 @@ function initMap() {
             name: name
         }); 
         
+        var infoWindow = new google.maps.InfoWindow();
+        locations[i].infoWindow = infoWindow;
         
         marker.addListener('click', function() {
             animateMarker(this, marker);
@@ -127,12 +129,16 @@ function initMap() {
             populateInfoWindow(this, infoWindow);
         });
         locations[i].marker = marker; 
-         
-    //push the marker created above into the markers array
+        
+//push the marker created above into the markers array
     markers.push(marker);
     
+//click event when list item is clicked, to animateMarker and show infowindow
+    locations[i].showDetails = function() {
+      animateMarker(this.marker);
+      populateInfoWindow(this.marker, this.infoWindow);
+    };
     }
-var infoWindow = new google.maps.InfoWindow();
 };
  
 //animates markers by bouncing and changing its color when clicked. The animation stops by using setTimeOut
