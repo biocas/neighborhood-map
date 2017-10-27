@@ -39,6 +39,12 @@ html, body {
     border-style: hidden; !important
 }
 
+/* Search and List */
+.input-option {
+    padding-top: 3%;
+    display: inline-block;
+}
+
 .list {
     padding: 2em;
 }
@@ -49,4 +55,5 @@ html, body {
 @media screen and (max-width: 800px){ 
     .title{
         display: none;
+    }
     }
