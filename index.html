@@ -13,7 +13,6 @@
              <div class="colapse sidebar show">
                  <header class="heading cold-md-4 col-xs-2">
                       <h2 class="title">Explore Marrickville</h2>
-                  <!--data-bind="click: toggle" INSERT ON INPUT -->
                      <input  data-toggle="collapse" data-target="sidebar" aria-expanded="true" class="menu-btn" type="image" src="img/hamburger.png"> 
                 </header>
                      <div class="col-md-4">
@@ -24,9 +23,6 @@
                                             value: selectedType"
                                              class="dropdown-menu" >
                         </select>
-                        <!-- data-bind="options: locationTypes,
-                                            optionsText: location.type,
-                                            value: selectedType" multiple="true" multiple -->
                       </div>
                        <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
                       <li class="list-item" data-bind="visible: visible, text: name, click: $parent.showDetails"></li>
