@@ -161,9 +161,7 @@ function animateMarker(marker) {
 
 function populateInfoWindow(marker, infowindow) {
     //check to see if an info window is already open on the marker
-    //console.log(marker);
     if (infowindow.marker != marker) {
-        //infowindow.setContent(' ');
         infowindow.marker = marker;
         infowindow.open(map, marker); 
           // Make sure the marker property is cleared if the infowindow is closed.
@@ -204,70 +202,28 @@ var ViewModel = function() {
     self.selectedType = ko.observable('All');
     self.filterLocations = ko.observableArray([]);
     self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
-    /*self.filterTypes = ko.computed(function() {
+    //pushes data into filterLocations array
+            for (var i = 0; i < locations.length; i++) {
+                var place = new Location(locations[i]);
+                self.filterLocations.push(place);
+            };
+    self.filterTypes = ko.computed(function() {
         for (var i = 0; i < self.locationList.length; i++) {
-            if (){
+            var match = self.filterTypes().includes(type);
+              
+            if (self.selectedType() === "All"){
+                self.locationList()[i].visible(true);
+                return match;
                 
-            } else if () {
+            } else if (self.selectedType() === self.locationList()[i].type) {
+                self.locationList()[i].visible(true);
+                return match;
                 
             } else {
-                return ko.utils.arrayFilter(self.filterLocations(), function(place) {
-               var type = place.type.toLowerCase();
-               var match = self.filterTypes().includes(type);
-               return match;
-            });
+                self.locationList()[i].visible(false);
+                return match;
         }
-    }});*/
-
-    
-    //pushes data into filterLocations array
-    for (var i = 0; i < locations.length; i++) {
-        var place = new Location(locations[i]);
-        self.filterLocations.push(place);
-       //console.log(place);
-    };
-    
-    /*
-    
-    self.filterPlaces = ko.computed ( function() {
-       var filter = self.filterTypes();
-       if ( self.filterTypes().length === 0 ) {
-           return self.locationTypes();
-       } else {
-
-           return ko.utils.arrayFilter(self.places(), function(place) {
-               var type = place.type.toLowerCase();
-               var match = self.filterTypes().includes(type);
-               return match;
-           });
-       }
-    });*/
-
-    //show markers when list items are clicked
-    /*self.showMarker = function() {
-        google.maps.event.trigger(markers[i], 'click');
-    }*/
-    
-    /* 
-    //markers are to go here but don't use observables
-    // list - maybe use ko.utils.arrayFilter 
-    //filter the list items - you want to use a query observable instead of a ko.observableArray as a filter
-
-    /* Then, we add the following filter function to the viewModel and pass the myNumbers observableArray as the first argument to the ko.utils.arrayFilter method:
-
-        viewModel.primeNumberList = ko.computed(function() {
-            return ko.utils.arrayFilter(this.myNumbers(), function(number) {
-                return test_prime(number); // Returns 'true' or 'false'
-            });
-        }, viewModel);
-
-        $('.menu-btn').click(function() {
-    $('.container').toggleClass('open');
- 
-        });
-        */
-    
-    
+    }});
 } 
 
 //appyind bindings through the View Model
