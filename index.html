@@ -2,6 +2,7 @@
 <html>
     <head>
        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Neighborhood Map</title>
         <link rel="stylesheet" href="css/style.css">
         
@@ -17,16 +18,16 @@
                 </header>
                   <!--put search bar and filter here -->
                      <div class="col-md-4">
-                         <p class="input-option">
-                    <input placeholder="Search" type="search" data-bind="textInput: query" autocomplete="off">
-                      </p>
-                     </div>
-                    
-                 
-                   
-                  <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
+                         <div class="input-option">
+                         <form id="search">
+                             <input placeholder="Search" type="search" data-bind="textInput: query" autocomplete="off">
+                         </form>
+                        
+                      </div>
+                       <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
                       <li class="list-item"></li>
                       <li></li>
+                     </div>
                   </ul>
              </div>
           </div>
