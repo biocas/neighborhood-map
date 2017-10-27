@@ -118,12 +118,6 @@ function initMap() {
             marker.clicked = true; 
             populateInfoWindow(this, infoWindow);
         });
-        marker.addListener('mouseout', function() {
-          if (!marker.clicked) {
-            marker.setIcon(defaultIcon);
-          }
-        });
-        
         locations[i].marker = marker; 
          
     //push the marker created above into the markers array
@@ -153,7 +147,7 @@ function animateMarker(marker) {
 
 function populateInfoWindow(marker, infowindow) {
     //check to see if an info window is already open on the marker
-    console.log(marker);
+    //console.log(marker);
     if (infowindow.marker != marker) {
         //infowindow.setContent(' ');
         infowindow.marker = marker;
@@ -191,18 +185,23 @@ var Location = function(data) {
 //View Model 
 var ViewModel = function() {
     var self = this;
-    
     self.locationList = ko.observableArray(locations); 
     self.query = ko.observable('');
     self.filterLocations = ko.observableArray();
     
+    //pushes data into filterLocations array
     for (var i = 0; i < locations.length; i++) {
         var place = new Location(locations[i]);
         self.filterLocations.push(place);
+        
+    };
+    
+    //show markers when list items are clicked
+    self.showMarker = function() {
+        google.maps.event.trigger(markers[i], 'click');
     }
     
     
-    //ko.applyBindings(ViewModel);
     /* 
     //markers are to go here but don't use observables
     // list - maybe use ko.utils.arrayFilter 
@@ -238,23 +237,8 @@ ko.applyBindings(vm);
 
 //Handling Errors
 function googleError() {
-
     alert('Oops! There has been an error and Google Maps is not loading');
-    console.log('Oops! There has been an error and Google Maps is not loading');
+    console.log('Error: Google Maps is not loading');
 }
 
 
-
-/*
-Display a simple list with location names using Knockoutjs:
-
-
-Instantiate the ViewModel and activate Knockout (aka apply the bindings). => todo
-
-Define an observableArray in the ViewModel. => todo
-
-Initialize the observableArray with the locations Array. => todo
-
-Apply the ko foreach binding to an element in the view and iterate over the observableArray. => todo
-
-*/
