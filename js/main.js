@@ -183,7 +183,7 @@ function populateInfoWindow(marker, infowindow) {
 var Location = function(data) {
     var self = this;
     self.name = data.name;
-    self.location = data.location;
+    self.address = data.address;
     self.showMe = ko.observable(true);
 };
 
