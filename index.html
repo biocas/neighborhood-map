@@ -17,13 +17,16 @@
                      <input  data-toggle="collapse" data-target="sidebar" aria-expanded="true" class="menu-btn" type="image" src="img/hamburger.png"> 
                 </header>
                      <div class="col-md-4">
-                         <div class="input-option">
+                         <div class="input-option ">
+                         <p>Look for...<p>
                          <select data-bind="options: locationTypes,
                                             optionsText: location.type,
-                                            optionsCaption: 'What are you up to?'"
-                                            multiple="true" multiple class="dropdown-menu" >
+                                            value: selectedType"
+                                             class="dropdown-menu" >
                         </select>
-                        <!--value: selectedCategory -->
+                        <!-- data-bind="options: locationTypes,
+                                            optionsText: location.type,
+                                            value: selectedType" multiple="true" multiple -->
                       </div>
                        <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
                       <li class="list-item" data-bind="visible: visible, text: name, click: $parent.showDetails"></li>
