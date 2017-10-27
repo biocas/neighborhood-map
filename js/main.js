@@ -137,27 +137,29 @@ function animateMarker(marker) {
 
 function populateInfoWindow(marker, infowindow) {
     //check to see if an info window is already open on the marker
+    console.log(marker);
     if (infowindow.marker != marker) {
-        infowindow.setContent(' ');
+        //infowindow.setContent(' ');
         infowindow.marker = marker;
+        infowindow.open(map, marker); 
           // Make sure the marker property is cleared if the infowindow is closed.
           infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
           });
         
         for (var i = 0; i < locations.length; i++) {
-            var name = locations[i].name; 
+            var name = locations[i].name;
             console.log(name);
             for (var j = 0; j < locations[i].type.length; j++) {
             var type = locations[i].type[j];
                 console.log(type);
-                infowindow.setContent('<div>' + name + '</div>' +
-                '<div>' + type + '</div>');
+                
           }
         }
         infowindow.setContent('<div>' + name + '</div>' +
                 '<div>' + type + '</div>');
-       infowindow.open(map, marker); 
+        
+       
     } 
 };
 
@@ -197,6 +199,9 @@ var ViewModel = function() {
     
 } 
 
+
+var vm = new ViewModel();
+ko.applyBindings(vm);
 //Handling Errors
 function googleError() {
 
