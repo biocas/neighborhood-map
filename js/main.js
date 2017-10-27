@@ -177,6 +177,7 @@ function populateInfoWindow(marker, infowindow) {
 var Location = function(data) {
     var self = this;
     self.name = data.name;
+    self.type= data.type; 
     self.address = data.address;
     self.showMe = ko.observable(true);
 };
@@ -193,13 +194,33 @@ var ViewModel = function() {
     for (var i = 0; i < locations.length; i++) {
         var place = new Location(locations[i]);
         self.filterLocations.push(place);
-        
+       // console.log(place);
     };
     
     //show markers when list items are clicked
     self.showMarker = function() {
         google.maps.event.trigger(markers[i], 'click');
     }
+    
+    self.locationTypes = ko.observableArray(['establishment', 'food', 'interest', 'gym', 'supermarket']);
+    
+    self.filterTypes = ko.observableArray([]);
+
+    
+    self.filterPlaces = ko.computed ( function() {
+       var filter = self.filterTypes();
+       if ( self.filterTypes().length === 0 ) {
+           return self.locationTypes();
+       } else {
+
+           return ko.utils.arrayFilter(self.places(), function(place) {
+               var type = place.type.toLowerCase();
+               var match = self.filterTypes().includes(type);
+               return match;
+           });
+       }
+    });
+
     
     
     /* 

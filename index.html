@@ -21,9 +21,16 @@
                          <div class="input-option">
                          <form id="search">
                              <input placeholder="Search" type="search" data-bind="textInput: query" autocomplete="off">
+
                          </form>
+                         <select data-bind="options: locationTypes,
+                                            optionsText: location.type,
+                                            optionsCaption: 'What are you up to?'"
+                                            multiple="true" multiple class="dropdown-menu" >
+                                 
+                             </select>
                         
-                      </div class="">
+                      </div>
                        <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
                       <li class="list-item" data-bind="text: name, click: $parent.showMarker"></li>
                      </div>
