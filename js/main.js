@@ -2,7 +2,7 @@
 var locations = [ //ko.observableArray ??????
     {
        position: {lat: -33.906764,lng: 151.171823}, 
-        name: 'Marrickville Metro Shopping Centre',
+        name: 'Marrickville Metro',
         address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls', 
         type: ['establishment', 'shopping_mall']
@@ -16,7 +16,7 @@ var locations = [ //ko.observableArray ??????
     },
     {
         position: {lat: -33.911291,lng: 151.158527}, 
-        name: 'Nutrition Station Cafe Marrickville',
+        name: 'Nutrition Station Cafe',
         address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJQ7Qsu2awEmsRPjuMoqq6vno',
         type: ['establishment', 'food']
