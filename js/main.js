@@ -197,10 +197,18 @@ var ViewModel = function() {
     
 } 
 
-var View = function() {
-    
+//Handling Errors
+function googleError() {
+
+    alert('Oops! There has been an error and Google Maps is not loading');
+    console.log('Oops! There has been an error and Google Maps is not loading');
 }
 
+
+$('.menu-btn').click(function() {
+ $('.container').toggleClass('open');
+ 
+});
 /*
 Display a simple list with location names using Knockoutjs:
 Define a hard-coded locations Array of location objects. => todo
