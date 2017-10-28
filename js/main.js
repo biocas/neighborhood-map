@@ -213,8 +213,6 @@ function populateInfoWindow(marker, infowindow) {
     } 
 };
 
-
-
 //Location represents the Model in the MVVM paradigm
 var Location = function(data) {
     var self = this;
@@ -256,6 +254,10 @@ var ViewModel = function() {
                 return match;
         }
     }});
+    
+    self.clickHandler = function(item) {
+        console.log(item);
+    }
     
     /*
     //open and animateMarkers when list item is clicked

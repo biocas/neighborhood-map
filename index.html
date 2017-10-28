@@ -25,8 +25,7 @@
                         </select>
                       </div>
                        <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
-                      <li class="list-item" data-bind="visible: visible, text: name, click: $root.populateInfoWindow"></li>
-                      
+                      <li class="list-item" data-bind="visible: visible, text: name, click: $parent.clickHandler"></li>
                      </div>
                   </ul>
              </div>
