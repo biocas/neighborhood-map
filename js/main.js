@@ -211,7 +211,7 @@ var Location = function(data) {
     self.name = ko.observable(data.name);
     self.type= ko.observable(data.type); 
     self.address = ko.observable(data.address);
-    self.showMe = ko.observable(true);
+    self.visible = ko.observable(data.visible);
     
     self.marker;
 };
@@ -220,9 +220,10 @@ var Location = function(data) {
 //View Model 
 var ViewModel = function() {
     var self = this;
-    self.locationList = ko.observableArray(locations); 
-    self.selectedType = ko.observable('All');
+    self.locationList = ko.observableArray(locations);
     self.filterLocations = ko.observableArray([]);
+    //stores dropdown menu selected value, which starts with 'all'
+    self.selectedType = ko.observable('All');
     self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
     
     //pushes data into filterLocations array
@@ -231,11 +232,13 @@ var ViewModel = function() {
                 self.filterLocations.push(place);
             };
     
+    //filters list based on type selected from the dropdown menu
     self.filterTypes = ko.computed(function() {
-        for (var i = 0; i < self.locationList.length; i++) {
-            var match = self.filterTypes().includes(type);
+       // for (var i = 0; i < self.locationList.length; i++) {
+            //var match = self.filterTypes().includes(type);
+        var filter = this.filter();
               
-            if (self.selectedType() === "All"){
+            /*if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
                 return match;
                 
@@ -246,9 +249,14 @@ var ViewModel = function() {
             } else {
                 self.locationList()[i].visible(false);
                 return match;
-        }
-    }});
+        }*/
+    //}
+    });
     
+    //show or hide map markers based on type selected from the dropdown menu
+    
+    
+// when a list item is clicked, it's correspondent marker and infowindow open
     self.clickHandler = function(location) {
         google.maps.event.trigger(location.marker, 'click');
     };
