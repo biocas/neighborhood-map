@@ -255,8 +255,12 @@ var ViewModel = function() {
         }
     }});
     
-    self.clickHandler = function(item) {
-        console.log(item);
+    self.clickHandler = function(location) {
+        console.log(location);
+        google.maps.event.trigger(location.marker, 'click');
+        //google.maps.event.trigger(animateMarker, 'click');
+        //animateMarker(this.marker);
+        //populateInfoWindow(this.marker, this.infowindow);
     }
     
     /*
