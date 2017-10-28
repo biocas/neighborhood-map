@@ -163,48 +163,57 @@ function animateMarker(marker) {
 };
 
 function populateInfoWindow(marker, infowindow) {
-    var articleUrl;
-    var wikiDescription; 
-    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
-    //var $wikiElem = $('#wikipedia-links');
-    
-    // clear out old data before new request
-    //$wikiElem.text("");
-    // Wikipedia Error Handling 
-     var wikiRequestTimeout = setTimeout(function(){
-        alert('Failed to get Wikipedia Resources');
-    }, 4000); 
-    
-    //ajax request
-    $.ajax({
-        url: wikiUrl, 
-        dataType: "jsonp", 
-        success: function(response) {
-            //clears timeOut request if wikipedia loads successfully
-            clearTimeout(wikiRequestTimeout);
-            
-            articleUrl = response[3];
-            wikiDescription = response[2]; 
-            console.log(wikiDescription);
-            console.log(articleUrl);
-            return wikiDescription;
-            }
-    });
-    
-    //check to see if an info window is already open on the marker
+    //the if statement checks to see if an info window is already open on the marker
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.open(map, marker); 
-        infowindow.setContent('<div>' + marker.name + '</div>'
-                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5><p>' + wikiDescription + '</p><ul id="wikipedia-links">' + articleUrl + '</ul>' 
-                             );
+        var articleUrl;
+         var wiki;
+        var wikiDescription; 
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
         
+        infowindow.open(map, marker); 
+        // Wikipedia Error Handling 
+         var wikiRequestTimeout = setTimeout(function(){
+            alert('Failed to get Wikipedia Resources');
+        }, 4000); 
+
+        //ajax request
+        $.ajax({
+            url: wikiUrl, 
+            dataType: "jsonp", 
+            success: function(response) {
+                //get data from response through an if statement that checks if there is, indeed, information available about the marker's location in the wikipedia api
+                if (response[2].length != 0) {
+                     articleUrl = response[3];
+                    wikiDescription = response[2]; 
+                    wiki = '<p>' + wikiDescription + '</p><p><a href="' + articleUrl + '">' + marker.name + '</a></p>';
+                    
+                } else {
+                    wiki = 'Looks like wikipedia doesn\'t know about this yet!';
+                }
+                //set content based on response obtained from wikipedia api
+                generateContent(marker, wiki);
+                
+                 //clears timeOut request if wikipedia loads successfully
+                clearTimeout(wikiRequestTimeout);
+                }
+            
+        });
+
+      var generateContent = function(marker, wiki) {
+    infowindow.setContent('<div>' + marker.name + '</div>'
+                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5>' + wiki);
+    //infowindow.open(map, marker); 
     // Clear the marker property when the infowindow is closed
-          infowindow.addListener('closeclick', function() {
+    infowindow.addListener('closeclick', function() {
+            infowindow.setContent(' ');
             infowindow.marker = null;
-          });
+        });
+        };   
     } 
 };
+
+
 
 //Location represents the Model in the MVVM paradigm
 var Location = function(data) {
