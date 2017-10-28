@@ -163,16 +163,17 @@ function animateMarker(marker) {
 };
 
 function populateInfoWindow(marker, infowindow) {
-    var articleUrl; 
+    var articleUrl;
+    var wikiDescription; 
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
-    var $wikiElem = $('#wikipedia-links');
+    //var $wikiElem = $('#wikipedia-links');
     
     // clear out old data before new request
-    $wikiElem.text("");
+    //$wikiElem.text("");
     // Wikipedia Error Handling 
      var wikiRequestTimeout = setTimeout(function(){
         alert('Failed to get Wikipedia Resources');
-    }, 2000); 
+    }, 4000); 
     
     //ajax request
     $.ajax({
@@ -181,9 +182,13 @@ function populateInfoWindow(marker, infowindow) {
         success: function(response) {
             //clears timeOut request if wikipedia loads successfully
             clearTimeout(wikiRequestTimeout);
-            var articleUrl = response[3][0];
-            //var articleUrl = response[1]; 
-        }
+            
+            articleUrl = response[3];
+            wikiDescription = response[2]; 
+            console.log(wikiDescription);
+            console.log(articleUrl);
+            return wikiDescription;
+            }
     });
     
     //check to see if an info window is already open on the marker
@@ -191,7 +196,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
         infowindow.open(map, marker); 
         infowindow.setContent('<div>' + marker.name + '</div>'
-                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links</h5><ul id="wikipedia-links">' + articleUrl + '</ul>'
+                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5><p>' + wikiDescription + '</p><ul id="wikipedia-links">' + articleUrl + '</ul>' 
                              );
         
     // Clear the marker property when the infowindow is closed
