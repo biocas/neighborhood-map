@@ -233,10 +233,10 @@ var ViewModel = function() {
             };
     
     //filters list based on type selected from the dropdown menu
-    self.filterTypes = ko.computed(function() {
+   // self.filterTypes = ko.computed(function() {
        // for (var i = 0; i < self.locationList.length; i++) {
             //var match = self.filterTypes().includes(type);
-        var filter = this.filter();
+        //var filter = this.filter();
               
             /*if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
@@ -251,7 +251,7 @@ var ViewModel = function() {
                 return match;
         }*/
     //}
-    });
+    //});
     
     //show or hide map markers based on type selected from the dropdown menu
     
