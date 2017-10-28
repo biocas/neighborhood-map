@@ -42,6 +42,7 @@ html, body {
 /* Dropdown menu and List */
 .input-option {
     padding-top: 3%;
+    padding-left: 3em;
     display: inline-block;
 }
 

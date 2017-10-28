@@ -5,15 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Neighborhood Map</title>
         <link rel="stylesheet" href="css/style.css">
-        
+        <link rel="stylesheet" href="css/simple-sidebar.css">
     </head>
     <body>
-       <div class="container open">
+       <div id="wrapper">
           <div class="row navbar">
              <div class="colapse sidebar show">
                  <header class="heading cold-md-4 col-xs-2">
                       <h2 class="title">Explore Marrickville</h2>
-                     <input  data-toggle="collapse" data-target="sidebar" aria-expanded="true" class="menu-btn" type="image" src="img/hamburger.png"> 
                 </header>
                      <div class="col-md-4">
                          <div class="input-option ">
@@ -31,13 +30,25 @@
              </div>
           </div>
            
-          
-           <div id="map"></div>
+           <div id="page_content_wrapper">
+               <div id="map"></div>
+           <div style="position: absolute; top: 0px; right: 0px; z-index: 99">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" >Show Menu</a>
+                </div>
+           </div>
+           
            
        </div>
         <script src="js/knockout.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/main.js"></script>
         <script async defer onerror="googleError()" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCOuPlvn1dH-WP3nweDfdvtHm3QVt5y_9I&v=3&callback=initMap"></script>
+        <!-- Menu Toggle Script -->
+        <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            });
+        </script>
     </body>
 </html>
