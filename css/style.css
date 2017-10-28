@@ -6,17 +6,12 @@ html, body {
     background-color: #a3d4e5;
 } 
 
-.container {
-    height: 100%;
-    position: relative;
-}
-
 #map { 
+    float: right;
     bottom:0px;
     height: 100%;
     position: absolute;
-    left: 33%; 
-    right: 0px; 
+    width: 100%; 
 }
 
 .title {
@@ -25,24 +20,10 @@ html, body {
     display: inline;
 } 
 
-/* info Window */
-.gm-style-iw {
-    
-}
-
-/* Hamburger Icon */
-.menu-btn {
-    width: 3em;
-    float: left;
-    padding-left: 3em;
-    background-color: #a3d4e5;
-    border-style: hidden; !important
-}
-
 /* Dropdown menu and List */
 .input-option {
     padding-top: 3%;
-    padding-left: 3em;
+    padding-left: 2em; 
     display: inline-block;
 }
 
@@ -55,15 +36,3 @@ html, body {
     margin: 10px;
 }
 
-
-
-
-@media screen and (max-width: 870px){ 
-    .title{
-        display: none;
-    }
-    .input-option {
-    padding-top: 10%;
-    }
-
-    }
