@@ -181,15 +181,8 @@ function populateInfoWindow(marker, infowindow) {
         success: function(response) {
             //clears timeOut request if wikipedia loads successfully
             clearTimeout(wikiRequestTimeout);
-            var articleUrl = reponse[3][0];
+            var articleUrl = response[3][0];
             //var articleUrl = response[1]; 
-            
-            /*for (var i = 0; i < articleList.length; i++){
-                var articleStr = articleList[i];
-                var url = 'http://en.wikipedia.org/wiki/' + articleStr; 
-                $wikiElem.append('<li> <a href= "'+ url + ' ">' + articleStr + '</a></li>');
-            }*/
-            
         }
     });
     
