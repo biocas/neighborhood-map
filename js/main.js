@@ -171,8 +171,8 @@ function populateInfoWindow(marker, infowindow) {
     $wikiElem.text("");
     // Wikipedia Error Handling 
      var wikiRequestTimeout = setTimeout(function(){
-        $wikiElem.text('Failed to get Wikipedia Resources');
-    }, 8000); 
+        alert('Failed to get Wikipedia Resources');
+    }, 2000); 
     
     //ajax request
     $.ajax({
@@ -191,11 +191,8 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
         infowindow.open(map, marker); 
         infowindow.setContent('<div>' + marker.name + '</div>'
-                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links</h5><ul id="wikipedia-links">' +articleUrl + '</ul>'
+                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links</h5><ul id="wikipedia-links">' + articleUrl + '</ul>'
                              );
-        
-          
-        
         
     // Clear the marker property when the infowindow is closed
           infowindow.addListener('closeclick', function() {
