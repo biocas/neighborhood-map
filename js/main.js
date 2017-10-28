@@ -66,7 +66,8 @@ var locations = [ //ko.observableArray ??????
     }
 ]; 
 
-var map; 
+var map;
+var vm; 
 var markers = [];
 var selectedMarker; 
 var defaultIcon = 'https://www.google.com/mapfiles/marker.png'; 
@@ -132,12 +133,14 @@ function initMap() {
         
 //push the marker created above into the markers array
     markers.push(marker);
+/*
     
 //click event when list item is clicked, to animateMarker and show infowindow
     locations[i].showDetails = function() {
       animateMarker(this.marker);
       populateInfoWindow(marker, infoWindow);
     };
+    */
     }
 };
  
@@ -160,12 +163,48 @@ function animateMarker(marker) {
 };
 
 function populateInfoWindow(marker, infowindow) {
+    var articleUrl; 
+    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
+    var $wikiElem = $('#wikipedia-links');
+    
+    // clear out old data before new request
+    $wikiElem.text("");
+    // Wikipedia Error Handling 
+     var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text('Failed to get Wikipedia Resources');
+    }, 8000); 
+    
+    //ajax request
+    $.ajax({
+        url: wikiUrl, 
+        dataType: "jsonp", 
+        success: function(response) {
+            //clears timeOut request if wikipedia loads successfully
+            clearTimeout(wikiRequestTimeout);
+            var articleUrl = reponse[3][0];
+            //var articleUrl = response[1]; 
+            
+            /*for (var i = 0; i < articleList.length; i++){
+                var articleStr = articleList[i];
+                var url = 'http://en.wikipedia.org/wiki/' + articleStr; 
+                $wikiElem.append('<li> <a href= "'+ url + ' ">' + articleStr + '</a></li>');
+            }*/
+            
+        }
+    });
+    
     //check to see if an info window is already open on the marker
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
         infowindow.open(map, marker); 
-        infowindow.setContent('<div>' + marker.name + '</div>');
-          // Clear the marker property when the infowindow is closed
+        infowindow.setContent('<div>' + marker.name + '</div>'
+                             + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links</h5><ul id="wikipedia-links">' +articleUrl + '</ul>'
+                             );
+        
+          
+        
+        
+    // Clear the marker property when the infowindow is closed
           infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
           });
@@ -189,11 +228,13 @@ var ViewModel = function() {
     self.selectedType = ko.observable('All');
     self.filterLocations = ko.observableArray([]);
     self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
+    
     //pushes data into filterLocations array
             for (var i = 0; i < locations.length; i++) {
                 var place = new Location(locations[i]);
                 self.filterLocations.push(place);
             };
+    
     self.filterTypes = ko.computed(function() {
         for (var i = 0; i < self.locationList.length; i++) {
             var match = self.filterTypes().includes(type);
@@ -211,10 +252,22 @@ var ViewModel = function() {
                 return match;
         }
     }});
+    
+    /*
+    //open and animateMarkers when list item is clicked
+    var listView = function(locations) {
+        this.name = locations.name; 
+        this.marker = locations.marker;
+    }
+    self.activateMarkers = function(locations) {
+    google.maps.event.trigger(locations.marker, 'click');
+    console.log('clicked');
+  };
+    */
 } 
 
 //appyind bindings through the View Model
-var vm = new ViewModel();
+vm = new ViewModel();
 ko.applyBindings(vm);
 
 
