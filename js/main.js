@@ -133,14 +133,6 @@ function initMap() {
         
 //push the marker created above into the markers array
     markers.push(marker);
-/*
-    
-//click event when list item is clicked, to animateMarker and show infowindow
-    locations[i].showDetails = function() {
-      animateMarker(this.marker);
-      populateInfoWindow(marker, infoWindow);
-    };
-    */
     }
 };
  
@@ -216,10 +208,12 @@ function populateInfoWindow(marker, infowindow) {
 //Location represents the Model in the MVVM paradigm
 var Location = function(data) {
     var self = this;
-    self.name = data.name;
-    self.type= data.type; 
-    self.address = data.address;
+    self.name = ko.observable(data.name);
+    self.type= ko.observable(data.type); 
+    self.address = ko.observable(data.address);
     self.showMe = ko.observable(true);
+    
+    self.marker;
 };
 
 
@@ -256,24 +250,8 @@ var ViewModel = function() {
     }});
     
     self.clickHandler = function(location) {
-        console.log(location);
         google.maps.event.trigger(location.marker, 'click');
-        //google.maps.event.trigger(animateMarker, 'click');
-        //animateMarker(this.marker);
-        //populateInfoWindow(this.marker, this.infowindow);
-    }
-    
-    /*
-    //open and animateMarkers when list item is clicked
-    var listView = function(locations) {
-        this.name = locations.name; 
-        this.marker = locations.marker;
-    }
-    self.activateMarkers = function(locations) {
-    google.maps.event.trigger(locations.marker, 'click');
-    console.log('clicked');
-  };
-    */
+    };
 } 
 
 //appyind bindings through the View Model
