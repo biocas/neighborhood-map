@@ -9,12 +9,11 @@
     </head>
     <body>
        <div id="wrapper">
-          
              <div id="sidebar-wrapper">
-                 <header class="heading cold-md-4 col-xs-2">
+                 <header class="heading">
                       <h2 class="title">Explore Marrickville</h2>
                 </header>
-                     <div class="col-md-4">
+                     <div>
                          <div class="input-option ">
                          <p>Look for...<p>
                          <select data-bind="options: locationTypes,
@@ -23,7 +22,7 @@
                                              class="dropdown-menu" >
                         </select>
                       </div>
-                       <ul class="list col-md-4 col-xs-2" data-bind="foreach: locations">
+                       <ul class="list" data-bind="foreach: locations">
                       <li class="list-item" data-bind="visible: visible, text: name, click: $parent.clickHandler"></li>
                      </div>
                   </ul>
