@@ -164,24 +164,11 @@ function populateInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
         infowindow.open(map, marker); 
-          // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.setContent('<div>' + marker.name + '</div>');
+          // Clear the marker property when the infowindow is closed
           infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
           });
-        
-        for (var i = 0; i < locations.length; i++) {
-            var name = locations[i].name;
-            console.log(name);
-            for (var j = 0; j < locations[i].type.length; j++) {
-            var type = locations[i].type[j];
-                console.log(type);
-                
-          }
-        }
-        infowindow.setContent('<div>' + name + '</div>' +
-                '<div>' + type + '</div>');
-        
-       
     } 
 };
 
