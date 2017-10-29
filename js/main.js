@@ -66,8 +66,7 @@ var locations = [
     }
 ]; 
 
-var map;
-var vm; 
+var map; 
 var markers = []; 
 var defaultIcon = 'https://www.google.com/mapfiles/marker.png'; 
 var selectedIcon = 'https://www.google.com/mapfiles/marker_white.png';
@@ -131,13 +130,6 @@ function initMap() {
             populateInfoWindow(this, infoWindow);
         });
         locations[i].marker = marker; 
-        
-        /* Defines event handler for click binding in list view <li>'s.  On click, associated map marker
-    animates and infowindow displays.  */
-    /*locations[i].showAndTell = function() {
-      bounceMarker(this.marker);
-      showInfoWindow(this.marker, this.infoWindow);
-    }; */
         
 //push the marker created above into the markers array
     markers.push(marker);
@@ -241,19 +233,20 @@ var ViewModel = function() {
               
             if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
-                console.log(self.locationList()[i].marker);
-                //return self.locationList()[i].marker.setVisible(true);
+                console.log('all');
+                self.locationList()[i].marker.setVisible(true);
                 
             } else if (self.selectedType() === self.locationList()[i].type) {
                 self.locationList()[i].visible(true);
-                console.log(self.locationList()[i].marker);
-                //return self.locationList()[i].marker.setVisible(true);
+                console.log(self.locationList()[i].name);
+                self.locationList()[i].marker.setVisible(true);
                 
             } else {
                 self.locationList()[i].visible(false);
-                console.log(self.locationList()[i].marker);
-                //return self.locationList()[i].marker.setVisible(false);
+                console.log('no');
+                self.locationList()[i].marker.setVisible(false);
         }
+            //console.log(self.locationList()[i].marker.visible);
     }
     });
     
