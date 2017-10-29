@@ -1,12 +1,13 @@
 // Hard-coded locations array
-var locations = [ //ko.observableArray ??????
+var locations = [ 
     {
         visible: ko.observable(true),
         position: {lat: -33.906764,lng: 151.171823}, 
         name: 'Marrickville Metro',
         address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls', 
-        type: ['establishment', 'shopping_mall']
+        //type: ['establishment', 'shopping_mall']
+        type: 'establishment'
     },
     {   
         visible: ko.observable(true),
@@ -14,7 +15,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Pagoto Gelato & Waffle House',
         address: '301 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJLRZtzWawEmsRT7Qig49CYGo',
-        type: ['establishment', 'food']
+        type: 'food'
+        //type: ['establishment', 'food']
     },
     {   
         visible: ko.observable(true),
@@ -22,7 +24,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Nutrition Station Cafe',
         address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJQ7Qsu2awEmsRPjuMoqq6vno',
-        type: ['establishment', 'food']
+        type: 'food'
+        //type: ['establishment', 'food']
     },
     {
         visible: ko.observable(true),
@@ -30,7 +33,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Banana Joe\'s Foodworks',
         address: '258 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJ5ZjmhmOwEmsRbLQh6yyI8P8',
-        type: ['establishment', 'food', 'grocery_or_supermarket']
+        type: 'supermarket'
+        //type: ['establishment', 'food', 'grocery_or_supermarket']
     },
     {
         visible: ko.observable(true),
@@ -38,7 +42,8 @@ var locations = [ //ko.observableArray ??????
         name: 'The Fitness Playground',
         address: '1, 258-272 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJB3qeH2OwEmsRkmqsd7pu0yY',
-        type: ['establishment', 'gym']
+        type: 'gym'
+        //type: ['establishment', 'gym']
     },
     {
         visible: ko.observable(true),
@@ -46,7 +51,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Marrickville Train Station',
         address: 'Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSVJV3GKwEmsRIrYZXmODFpg',
-        type: ['train_station', 'transit_station']
+        type: 'establishment'
+        //type: ['train_station', 'transit_station']
     },
     {
         visible: ko.observable(true),
@@ -54,7 +60,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Henson Park',
         address: '22 Centennial St, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSxdjKGmwEmsRwBby-Wh9AQ8',
-        type: ['point_of_interest', 'stadium']
+        type: 'interest'
+        //type: ['point_of_interest', 'stadium']
     },
     {
         visible: ko.observable(true),
@@ -62,7 +69,8 @@ var locations = [ //ko.observableArray ??????
         name: 'Factory Theatre',
         address: '105 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJGXxx7mewEmsRGZWc2Vov7u0',
-        type: ['establishment', 'point_of_interest']
+        type: 'interest'
+        //type: ['establishment', 'point_of_interest']
     }
 ]; 
 
@@ -131,9 +139,18 @@ function initMap() {
         });
         locations[i].marker = marker; 
         
+        /* Defines event handler for click binding in list view <li>'s.  On click, associated map marker
+    animates and infowindow displays.  */
+    /*locations[i].showAndTell = function() {
+      bounceMarker(this.marker);
+      showInfoWindow(this.marker, this.infoWindow);
+    }; */
+        
 //push the marker created above into the markers array
     markers.push(marker);
     }
+   
+    
 };
  
 //animates markers by bouncing and changing its color when clicked. The animation stops by using setTimeOut
@@ -221,37 +238,43 @@ var Location = function(data) {
 var ViewModel = function() {
     var self = this;
     self.locationList = ko.observableArray(locations);
-    self.filterLocations = ko.observableArray([]);
+   // self.filterLocations = ko.observableArray([]);
     //stores dropdown menu selected value, which starts with 'all'
     self.selectedType = ko.observable('All');
     self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
     
     //pushes data into filterLocations array
-            for (var i = 0; i < locations.length; i++) {
+           /* for (var i = 0; i < locations.length; i++) {
                 var place = new Location(locations[i]);
                 self.filterLocations.push(place);
-            };
+            }; */
     
     //filters list based on type selected from the dropdown menu
-   // self.filterTypes = ko.computed(function() {
-       // for (var i = 0; i < self.locationList.length; i++) {
+    self.filterLocations = ko.computed(function() {
+        for (var i = 0; i < self.locationList().length; i++) {
             //var match = self.filterTypes().includes(type);
         //var filter = this.filter();
               
-            /*if (self.selectedType() === "All"){
+            if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
-                return match;
+                console.log(self.locationList()[i].type);
+                //return self.locationList()[i].marker.setVisible(true);
+                //return match;
                 
             } else if (self.selectedType() === self.locationList()[i].type) {
                 self.locationList()[i].visible(true);
-                return match;
+                console.log(self.locationList()[i]);
+                //return self.locationList()[i].marker.setVisible(true);
+                //return match;
                 
             } else {
                 self.locationList()[i].visible(false);
-                return match;
-        }*/
-    //}
-    //});
+                console.log('false');
+                //return self.locationList()[i].marker.setVisible(false);
+                //return match;
+        }
+    }
+    });
     
     //show or hide map markers based on type selected from the dropdown menu
     
