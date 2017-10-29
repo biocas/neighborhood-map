@@ -68,8 +68,7 @@ var locations = [
 
 var map;
 var vm; 
-var markers = [];
-var selectedMarker; 
+var markers = []; 
 var defaultIcon = 'https://www.google.com/mapfiles/marker.png'; 
 var selectedIcon = 'https://www.google.com/mapfiles/marker_white.png';
 // color styles inspired by https://snazzymaps.com/style/93/lost-in-the-desert 
@@ -108,6 +107,7 @@ function initMap() {
     for(var i = 0; i < locations.length; i++) {
         //Get data from locations array 
         var position = locations[i].position; 
+        var type = locations[i].type;
         var name = locations[i].name; 
         //create the marker itself
         var marker = new google.maps.Marker({
@@ -117,7 +117,8 @@ function initMap() {
             defaultIcon: defaultIcon,
             selectedIcon: selectedIcon,
             position: position,
-            clicked: false, 
+            clicked: false,
+            visible: true, 
             name: name
         }); 
         
@@ -141,8 +142,8 @@ function initMap() {
 //push the marker created above into the markers array
     markers.push(marker);
     }
-   
-    
+// apply bindings
+    ko.applyBindings(new ViewModel());
 };
  
 //animates markers by bouncing and changing its color when clicked. The animation stops by using setTimeOut
@@ -240,31 +241,27 @@ var ViewModel = function() {
               
             if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
+                console.log(self.locationList()[i].marker);
                 //return self.locationList()[i].marker.setVisible(true);
                 
             } else if (self.selectedType() === self.locationList()[i].type) {
                 self.locationList()[i].visible(true);
+                console.log(self.locationList()[i].marker);
                 //return self.locationList()[i].marker.setVisible(true);
                 
             } else {
                 self.locationList()[i].visible(false);
+                console.log(self.locationList()[i].marker);
                 //return self.locationList()[i].marker.setVisible(false);
         }
     }
     });
-    
-    //show or hide map markers based on type selected from the dropdown menu
-    
     
 // when a list item is clicked, it's correspondent marker and infowindow open
     self.clickHandler = function(location) {
         google.maps.event.trigger(location.marker, 'click');
     };
 } 
-
-//appyind bindings through the View Model
-vm = new ViewModel();
-ko.applyBindings(vm);
 
 
 //Handling Errors
