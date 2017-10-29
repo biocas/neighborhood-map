@@ -230,16 +230,9 @@ var Location = function(data) {
 var ViewModel = function() {
     var self = this;
     self.locationList = ko.observableArray(locations);
-   // self.filterLocations = ko.observableArray([]);
     //stores dropdown menu selected value, which starts with 'all'
     self.selectedType = ko.observable('All');
     self.locationTypes = ko.observableArray(['All','establishment', 'food', 'interest', 'gym', 'supermarket']);
-    
-    //pushes data into filterLocations array
-           /* for (var i = 0; i < locations.length; i++) {
-                var place = new Location(locations[i]);
-                self.filterLocations.push(place);
-            }; */
     
     //filters list based on type selected from the dropdown menu
     self.filterLocations = ko.computed(function() {
