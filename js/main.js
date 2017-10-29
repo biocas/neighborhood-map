@@ -6,7 +6,6 @@ var locations = [
         name: 'Marrickville Metro',
         address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls', 
-        //type: ['establishment', 'shopping_mall']
         type: 'establishment'
     },
     {   
@@ -16,7 +15,6 @@ var locations = [
         address: '301 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJLRZtzWawEmsRT7Qig49CYGo',
         type: 'food'
-        //type: ['establishment', 'food']
     },
     {   
         visible: ko.observable(true),
@@ -25,7 +23,6 @@ var locations = [
         address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJQ7Qsu2awEmsRPjuMoqq6vno',
         type: 'food'
-        //type: ['establishment', 'food']
     },
     {
         visible: ko.observable(true),
@@ -34,7 +31,6 @@ var locations = [
         address: '258 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJ5ZjmhmOwEmsRbLQh6yyI8P8',
         type: 'supermarket'
-        //type: ['establishment', 'food', 'grocery_or_supermarket']
     },
     {
         visible: ko.observable(true),
@@ -43,7 +39,6 @@ var locations = [
         address: '1, 258-272 Illawarra Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJB3qeH2OwEmsRkmqsd7pu0yY',
         type: 'gym'
-        //type: ['establishment', 'gym']
     },
     {
         visible: ko.observable(true),
@@ -52,7 +47,6 @@ var locations = [
         address: 'Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSVJV3GKwEmsRIrYZXmODFpg',
         type: 'establishment'
-        //type: ['train_station', 'transit_station']
     },
     {
         visible: ko.observable(true),
@@ -61,7 +55,6 @@ var locations = [
         address: '22 Centennial St, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJSxdjKGmwEmsRwBby-Wh9AQ8',
         type: 'interest'
-        //type: ['point_of_interest', 'stadium']
     },
     {
         visible: ko.observable(true),
@@ -70,7 +63,6 @@ var locations = [
         address: '105 Victoria Rd, Marrickville NSW 2204, Austrália',
         placeId: 'ChIJGXxx7mewEmsRGZWc2Vov7u0',
         type: 'interest'
-        //type: ['establishment', 'point_of_interest']
     }
 ]; 
 
@@ -252,26 +244,18 @@ var ViewModel = function() {
     //filters list based on type selected from the dropdown menu
     self.filterLocations = ko.computed(function() {
         for (var i = 0; i < self.locationList().length; i++) {
-            //var match = self.filterTypes().includes(type);
-        //var filter = this.filter();
               
             if (self.selectedType() === "All"){
                 self.locationList()[i].visible(true);
-                console.log(self.locationList()[i].type);
                 //return self.locationList()[i].marker.setVisible(true);
-                //return match;
                 
             } else if (self.selectedType() === self.locationList()[i].type) {
                 self.locationList()[i].visible(true);
-                console.log(self.locationList()[i]);
                 //return self.locationList()[i].marker.setVisible(true);
-                //return match;
                 
             } else {
                 self.locationList()[i].visible(false);
-                console.log('false');
                 //return self.locationList()[i].marker.setVisible(false);
-                //return match;
         }
     }
     });
