@@ -8,16 +8,14 @@ html, body {
 
 #map { 
     float: right;
-    bottom:0px;
     height: 100%;
     position: absolute;
     width: 100%; 
 }
 
 .title {
-    margin: 2%;
+    margin: 0.5em;
     padding-top: 1.5em;
-    display: inline;
 } 
 
 /* Dropdown menu and List */
@@ -35,4 +33,3 @@ html, body {
 .list-item {
     margin: 10px;
 }
-
