@@ -209,19 +209,13 @@ function populateInfoWindow(marker, infowindow) {
         var articleUrl;
         var wiki;
         var wikiDescription;
-        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
-
-        infowindow.open(map, marker);
-        // Wikipedia Error Handling 
-        var wikiRequestTimeout = setTimeout(function() {
-            alert('Failed to get Wikipedia Resources');
-        }, 4000);
+        var wikiUrl = 'https://en.w///ikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
 
         //ajax request
         $.ajax({
             url: wikiUrl,
-            dataType: "jsonp",
-            success: function(response) {
+            dataType: "jsonp"
+        }).done(function(response) {
                 //get data from response through an if statement that checks if there is, indeed, information available about the marker's location in the wikipedia api
                 if (response[2].length !== 0) {
                     articleUrl = response[3];
@@ -234,15 +228,14 @@ function populateInfoWindow(marker, infowindow) {
                 //set content based on response obtained from wikipedia api
                 generateContent(marker, wiki);
 
-                //clears timeOut request if wikipedia loads successfully
-                clearTimeout(wikiRequestTimeout);
-            }
-
+        }).fail(function() {
+                infowindow.setContent('<div> Failed to get Wikipedia Resources </div>');
+            infowindow.open(map, marker);
         });
 
         var generateContent = function(marker, wiki) {
             infowindow.setContent('<div>' + marker.name + '</div>' + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5>' + wiki);
-            //infowindow.open(map, marker); 
+            infowindow.open(map, marker); 
             // Clear the marker property when the infowindow is closed
             infowindow.addListener('closeclick', function() {
                 infowindow.setContent(' ');
