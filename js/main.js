@@ -2,24 +2,22 @@
 var locations = [{
         visible: ko.observable(true),
         position: {
-            lat: -33.906764,
-            lng: 151.171823
+            lat: -33.915306,
+            lng: 151.162096
         },
-        name: 'Marrickville Metro',
-        address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJD9aOSESwEmsRa2mOlvfD5ls',
-        type: 'establishment'
+        name: 'Fraser Park',
+        address: '100 Marrickville Rd, Marrickville NSW 2204',
+        type: 'interest'
     },
     {
         visible: ko.observable(true),
         position: {
-            lat: -33.911956,
-            lng: 151.160234
+            lat: -33.921446,
+            lng: 151.146684
         },
-        name: 'Pagoto Gelato & Waffle House',
-        address: '301 Victoria Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJLRZtzWawEmsRT7Qig49CYGo',
-        type: 'food'
+        name: 'Cooks River',
+        address: 'Cooks River, NSW Australia',
+        type: 'interest'
     },
     {
         visible: ko.observable(true),
@@ -29,7 +27,6 @@ var locations = [{
         },
         name: 'Nutrition Station Cafe',
         address: '181 Marrickville Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJQ7Qsu2awEmsRPjuMoqq6vno',
         type: 'food'
     },
     {
@@ -40,7 +37,6 @@ var locations = [{
         },
         name: 'Banana Joe\'s Foodworks',
         address: '258 Illawarra Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJ5ZjmhmOwEmsRbLQh6yyI8P8',
         type: 'supermarket'
     },
     {
@@ -51,19 +47,17 @@ var locations = [{
         },
         name: 'The Fitness Playground',
         address: '1, 258-272 Illawarra Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJB3qeH2OwEmsRkmqsd7pu0yY',
         type: 'gym'
     },
     {
         visible: ko.observable(true),
         position: {
-            lat: -33.9138,
-            lng: 151.153245
+            lat: -33.906425,
+            lng: 151.171888
         },
-        name: 'Marrickville Train Station',
-        address: 'Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJSVJV3GKwEmsRIrYZXmODFpg',
-        type: 'establishment'
+        name: 'McDonald\'s',
+        address: '34 Victoria Rd, Marrickville NSW 2204, Austrália',
+        type: 'food'
     },
     {
         visible: ko.observable(true),
@@ -73,7 +67,6 @@ var locations = [{
         },
         name: 'Henson Park',
         address: '22 Centennial St, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJSxdjKGmwEmsRwBby-Wh9AQ8',
         type: 'interest'
     },
     {
@@ -84,7 +77,6 @@ var locations = [{
         },
         name: 'Factory Theatre',
         address: '105 Victoria Rd, Marrickville NSW 2204, Austrália',
-        placeId: 'ChIJGXxx7mewEmsRGZWc2Vov7u0',
         type: 'interest'
     }
 ];
@@ -209,7 +201,7 @@ function populateInfoWindow(marker, infowindow) {
         var articleUrl;
         var wiki;
         var wikiDescription;
-        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Marrickville&format=json&callback=wikiCallback';
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
 
         //ajax request
         $.ajax({
@@ -252,7 +244,7 @@ var ViewModel = function() {
     self.locationList = ko.observableArray(locations);
     //stores dropdown menu selected value, which starts with 'all'
     self.selectedType = ko.observable('All');
-    self.locationTypes = ko.observableArray(['All', 'establishment', 'food', 'interest', 'gym', 'supermarket']);
+    self.locationTypes = ko.observableArray(['All', 'food', 'interest', 'gym', 'supermarket']);
 
     //filters list based on type selected from the dropdown menu
     self.filterLocations = ko.computed(function() {
