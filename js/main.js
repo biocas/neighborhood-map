@@ -196,7 +196,7 @@ function animateMarker(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function() {
         marker.setAnimation(google.maps.Animation.NULL);
-    }, 1250);
+    }, 1400);
     setTimeout(function() {
         marker.setIcon(defaultIcon);
     }, 1250);
