@@ -164,7 +164,7 @@ function initMap() {
 
         var infoWindow = new google.maps.InfoWindow();
         locations[i].infoWindow = infoWindow;
-
+//take this outside the loop
         marker.addListener('click', function() {
             animateMarker(this, marker);
             marker.clicked = true;
@@ -177,7 +177,7 @@ function initMap() {
     }
     // apply bindings
     ko.applyBindings(new ViewModel());
-};
+}
 
 //animates markers by bouncing and changing its color when clicked. The animation stops by using setTimeOut
 function animateMarker(marker) {
@@ -195,7 +195,7 @@ function animateMarker(marker) {
     setTimeout(function() {
         marker.setIcon(defaultIcon);
     }, 1250);
-};
+}
 
 function populateInfoWindow(marker, infowindow) {
     //the if statement checks to see if an info window is already open on the marker
@@ -218,7 +218,7 @@ function populateInfoWindow(marker, infowindow) {
             dataType: "jsonp",
             success: function(response) {
                 //get data from response through an if statement that checks if there is, indeed, information available about the marker's location in the wikipedia api
-                if (response[2].length != 0) {
+                if (response[2].length !== 0) {
                     articleUrl = response[3];
                     wikiDescription = response[2];
                     wiki = '<p>' + wikiDescription + '</p><p><a href="' + articleUrl + '">' + marker.name + '</a></p>';
@@ -236,8 +236,7 @@ function populateInfoWindow(marker, infowindow) {
         });
 
         var generateContent = function(marker, wiki) {
-            infowindow.setContent('<div>' + marker.name + '</div>' +
-                '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5>' + wiki);
+            infowindow.setContent('<div>' + marker.name + '</div>' + '<div class="wikipedia-container"><h5 class="wikipedia-header">Relevant Wikipedia Links and Info</h5>' + wiki);
             //infowindow.open(map, marker); 
             // Clear the marker property when the infowindow is closed
             infowindow.addListener('closeclick', function() {
@@ -246,7 +245,7 @@ function populateInfoWindow(marker, infowindow) {
             });
         };
     }
-};
+}
 
 //Location represents the Model in the MVVM paradigm
 var Location = function(data) {
@@ -294,7 +293,7 @@ var ViewModel = function() {
     self.clickHandler = function(location) {
         google.maps.event.trigger(location.marker, 'click');
     };
-}
+};
 
 
 //Handling Errors
