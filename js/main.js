@@ -1,4 +1,4 @@
-// Hard-coded locations array
+// Hard-coded locations array that represents the Model in the MVVM paradigm
 var locations = [{
         visible: ko.observable(true),
         position: {
@@ -164,17 +164,22 @@ function initMap() {
 
         var infoWindow = new google.maps.InfoWindow();
         locations[i].infoWindow = infoWindow;
-//take this outside the loop
-        marker.addListener('click', function() {
+        locations[i].marker = marker;
+        //calls the click handler function inside the for loop
+        markerClick(marker);
+        //push the marker created above into the markers array
+        markers.push(marker);
+    }
+    
+    //function foor handling clicks on markers
+    function markerClick(marker) {
+         marker.addListener('click', function() {
             animateMarker(this, marker);
             marker.clicked = true;
             populateInfoWindow(this, infoWindow);
         });
-        locations[i].marker = marker;
-
-        //push the marker created above into the markers array
-        markers.push(marker);
     }
+    
     // apply bindings
     ko.applyBindings(new ViewModel());
 }
@@ -246,16 +251,6 @@ function populateInfoWindow(marker, infowindow) {
         };
     }
 }
-
-//Location represents the Model in the MVVM paradigm
-var Location = function(data) {
-    var self = this;
-    self.name = ko.observable(data.name);
-    self.type = ko.observable(data.type);
-    self.address = ko.observable(data.address);
-    self.visible = ko.observable(data.visible);
-};
-
 
 //View Model 
 var ViewModel = function() {
