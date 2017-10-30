@@ -254,8 +254,6 @@ var Location = function(data) {
     self.type = ko.observable(data.type);
     self.address = ko.observable(data.address);
     self.visible = ko.observable(data.visible);
-
-    self.marker;
 };
 
 
