@@ -209,13 +209,14 @@ function populateInfoWindow(marker, infowindow) {
         var articleUrl;
         var wiki;
         var wikiDescription;
-        var wikiUrl = 'https://en.w///ikipedia.org/w/api.php?action=opensearch&search=' + marker.name + '&format=json&callback=wikiCallback';
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Marrickville&format=json&callback=wikiCallback';
 
         //ajax request
         $.ajax({
             url: wikiUrl,
             dataType: "jsonp"
         }).done(function(response) {
+            console.log(response);
                 //get data from response through an if statement that checks if there is, indeed, information available about the marker's location in the wikipedia api
                 if (response[2].length !== 0) {
                     articleUrl = response[3];
